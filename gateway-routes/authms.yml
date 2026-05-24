@@ -1,0 +1,14 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: authms
+          uri: lb://AUTHMS
+          predicates:
+            - Path=/Gateway/API/**
+          filters:
+            - RewritePath=/Gateway/API/(?<segment>.*), /${segment}
+          
+          metadata:
+            response-timeout: 15000
+            connect-timeout: 10000
